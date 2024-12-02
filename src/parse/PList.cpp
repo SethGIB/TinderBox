@@ -24,6 +24,7 @@
 #include "PList.h"
 
 #include <QTextStream>
+#include <QStringConverter>
 #include <iostream>
 #include <typeinfo>
 #include <algorithm>
@@ -198,7 +199,7 @@ void PList::parse( QFile &file )
 
 	QTextStream *qs = new QTextStream( &file );
 	qs->setAutoDetectUnicode( false );
-	qs->setCodec( "UTF-8" );
+    qs->setEncoding( QStringConverter::Utf8 );
 	PList::TextStream s = PList::TextStream( QSharedPointer<QTextStream>( qs ) );
 
 	s.skipWhiteSpace();
@@ -211,7 +212,7 @@ void PList::parse( const QString &s )
 	QString localCopy = s;
 	QTextStream *qs = new QTextStream( &localCopy );
 	qs->setAutoDetectUnicode( false );
-	qs->setCodec( "UTF-8" );
+    qs->setEncoding( QStringConverter::Utf8 );
 	PList::TextStream ts = PList::TextStream( QSharedPointer<QTextStream>( qs ) );
 
 	ts.skipWhiteSpace();

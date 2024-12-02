@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QUuid>
+#include <QStringConverter>
 #include <iostream>
 
 const QString kTBoxPrefix           = "_TBOX_PREFIX_";
@@ -171,8 +172,8 @@ void copyFileHelper( QFileInfo src, QFileInfo dst, bool replaceContents, QString
 		QTextStream dstStream( &dstFile );
 
 		srcStream.setAutoDetectUnicode( false );
-		srcStream.setCodec( "UTF-8" );
-		dstStream.setCodec( "UTF-8" );
+        srcStream.setEncoding( QStringConverter::Utf8 );
+        dstStream.setEncoding( QStringConverter::Utf8 );
 		dstStream.setGenerateByteOrderMark( false );
 
 		QString uuids[3];
@@ -223,7 +224,7 @@ QString loadAndStringReplace( QFileInfo path, QString replacePrefix, QString cin
 	QTextStream srcStream( &srcFile );
 
 	srcStream.setAutoDetectUnicode( false );
-	srcStream.setCodec( "UTF-8" );
+    srcStream.setEncoding( QStringConverter::Utf8 );
 
 	QString contents = srcStream.readAll();
 	contents.replace( kTBoxPrefix, replacePrefix );

@@ -33,7 +33,7 @@
 #include <QErrorMessage>
 #include <QFileDialog>
 #include <QProcess>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 #include <QSettings>
 #include <QPainter>
 #include <fstream>
@@ -56,7 +56,7 @@ WizardPageMain::WizardPageMain( MainWizard *parent ) :
 {
     // UI
     ui->setupUi( this );
-	ui->projectNameLineEdit->setValidator( new QRegExpValidator( QRegExp( "[A-Za-z_][\\w]*" ), ui->projectNameLineEdit ) );
+    ui->projectNameLineEdit->setValidator( new QRegularExpressionValidator( QRegularExpression( "[A-Za-z_][\\w]*" ), ui->projectNameLineEdit ) );
 	ui->projectNameLineEdit->setText( "CinderProject" );
 	mLocationPaletteOrig = ui->locationLineEdit->palette();
 
@@ -130,7 +130,7 @@ void WizardPageMain::updateTemplates()
 	const QList<ProjectTemplate> &templates = ProjectTemplateManager::getTemplates();
 	for( QList<ProjectTemplate>::ConstIterator tmplIt = templates.begin(); tmplIt != templates.end(); ++tmplIt ) {
 		mProjectTemplates.push_back( *tmplIt );
-		ui->templateComboBox->addItem( tmplIt->getName(), qVariantFromValue( (void*)(&mProjectTemplates.back() )) );
+        ui->templateComboBox->addItem( tmplIt->getName(), QVariant::fromValue( (void*)(&mProjectTemplates.back() )) );
 	}
 	
 	// add all the CinderBlock templates
@@ -140,7 +140,7 @@ void WizardPageMain::updateTemplates()
 		ui->templateComboBox->insertSeparator( ui->templateComboBox->count() );
 	for( QList<ProjectTemplate>::ConstIterator tmplIt = cblockTemplates.begin(); tmplIt != cblockTemplates.end(); ++tmplIt ) {
 		mProjectTemplates.push_back( *tmplIt );
-		ui->templateComboBox->addItem( tmplIt->getName(), qVariantFromValue( (void*)(&mProjectTemplates.back() )) );
+        ui->templateComboBox->addItem( tmplIt->getName(), QVariant::fromValue( (void*)(&mProjectTemplates.back() )) );
 	}
 	
 	// if we have a template with the same ID as the old ID, select that
@@ -243,10 +243,11 @@ void WizardPageMain::updateCinderVersionsCtrl()
 	for( ; cit != Preferences::getCinderVersions().end(); ++cit ) {
         ui->cinderVersionComboBox->addItem( cit->name );
 		if( ! cit->valid )
-			ui->cinderVersionComboBox->setItemData( ui->cinderVersionComboBox->count() - 1, QVariant(QColor(Qt::red)), Qt::TextColorRole);
+
+            ui->cinderVersionComboBox->setItemData( ui->cinderVersionComboBox->count() - 1, QVariant(QColor(Qt::red)), Qt::ForegroundRole);
     }
 
-	if( ! Preferences::getCinderVersions()[ui->cinderVersionComboBox->currentIndex()].valid )
+    if( ! Preferences::getCinderVersions()[ui->cinderVersionComboBox->currentIndex()].valid )
 		ui->cinderVersionComboBox->setStyleSheet("QComboBox { background-color: red; }");
 }
 

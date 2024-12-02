@@ -505,7 +505,7 @@ void Template::instantiateFilesMatchingConditions( const vector<GeneratorConditi
 	for( QList<File>::ConstIterator fileIt = mFiles.begin(); fileIt != mFiles.end(); ++fileIt ) {
 		for( auto conditionsIt = conditionsList.begin(); conditionsIt != conditionsList.end(); ++conditionsIt ) {
 			if( fileIt->shouldCopy() && fileIt->conditionsMatch( *conditionsIt ) ) {
-				cloner->copyFileOrDir( *conditionsIt, fileIt->getAbsoluteInputPath(), fileIt->getAbsoluteOutputPath(), overwriteExisting, fileIt->getReplaceContents(), mReplacementPrefix, false );
+                cloner->copyFileOrDir( *conditionsIt, QFileInfo(fileIt->getAbsoluteInputPath()), QFileInfo(fileIt->getAbsoluteOutputPath()), overwriteExisting, fileIt->getReplaceContents(), mReplacementPrefix, false );
 				break;
 			}
 		}
@@ -515,7 +515,7 @@ void Template::instantiateFilesMatchingConditions( const vector<GeneratorConditi
 	for( QList<IncludePath>::ConstIterator pathIt = mIncludePaths.begin(); pathIt != mIncludePaths.end(); ++pathIt ) {
 		for( auto conditionsIt = conditionsList.begin(); conditionsIt != conditionsList.end(); ++conditionsIt ) {
 			if( pathIt->shouldCopy() && pathIt->conditionsMatch( *conditionsIt ) ) {
-				cloner->copyFileOrDir( *conditionsIt, pathIt->getAbsoluteInputPath(), pathIt->getAbsoluteOutputPath(), overwriteExisting );
+                cloner->copyFileOrDir( *conditionsIt, QFileInfo(pathIt->getAbsoluteInputPath()), QFileInfo(pathIt->getAbsoluteOutputPath()), overwriteExisting );
 				break;
 			}
 		}
@@ -525,7 +525,7 @@ void Template::instantiateFilesMatchingConditions( const vector<GeneratorConditi
 	for( QList<DynamicLibrary>::ConstIterator libIt = mDynamicLibraries.begin(); libIt != mDynamicLibraries.end(); ++libIt ) {
 		for( auto conditionsIt = conditionsList.begin(); conditionsIt != conditionsList.end(); ++conditionsIt ) {
 			if( libIt->shouldCopy() && libIt->conditionsMatch( *conditionsIt ) ) {
-				cloner->copyFileOrDir( *conditionsIt, libIt->getAbsoluteInputPath(), libIt->getAbsoluteOutputPath(), overwriteExisting );
+                cloner->copyFileOrDir( *conditionsIt, QFileInfo(libIt->getAbsoluteInputPath()), QFileInfo(libIt->getAbsoluteOutputPath()), overwriteExisting );
 				break;
 			}
 		}
@@ -535,7 +535,7 @@ void Template::instantiateFilesMatchingConditions( const vector<GeneratorConditi
 	for( QList<StaticLibrary>::ConstIterator libIt = mStaticLibraries.begin(); libIt != mStaticLibraries.end(); ++libIt ) {
 		for( auto conditionsIt = conditionsList.begin(); conditionsIt != conditionsList.end(); ++conditionsIt ) {
 			if( libIt->shouldCopy() && libIt->conditionsMatch( *conditionsIt ) ) {
-				cloner->copyFileOrDir( *conditionsIt, libIt->getAbsoluteInputPath(), libIt->getAbsoluteOutputPath(), overwriteExisting );
+                cloner->copyFileOrDir( *conditionsIt, QFileInfo(libIt->getAbsoluteInputPath()), QFileInfo(libIt->getAbsoluteOutputPath()), overwriteExisting );
 				break;
 			}
 		}

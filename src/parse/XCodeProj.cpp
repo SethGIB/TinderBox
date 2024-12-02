@@ -247,7 +247,7 @@ QSharedPointer<XCodeProj::PbxBuildPhase> XCodeProj::createOrFindCopyFilesBuildPh
 	// try to find an existing copyFiles buildPhase with the same dstSubfolderSpec
 	for( QList<QSharedPointer<PbxBuildPhase> >::Iterator itIt = mPbxBuildPhases.begin(); itIt != mPbxBuildPhases.end(); ++itIt ) {
 		if( (*itIt)->getIsa() == QString( "PBXCopyFilesBuildPhase" ) ) {
-			if( (**itIt)["dstSubfolderSpec"] == QString( dstSubfolderSpec ) )
+            if( (**itIt)["dstSubfolderSpec"] == QString( (QChar)dstSubfolderSpec ) )
 				return *itIt;
 		}
 	}
@@ -299,7 +299,7 @@ QSharedPointer<XCodeProj::PbxGroup> XCodeProj::findSourcesGroup()
 	const QString names[] = { "source", "src", "sources" };
 
 	for( QList<QSharedPointer<PbxGroup> >::Iterator groupIt = mPbxGroups.begin(); groupIt != mPbxGroups.end(); ++groupIt ) {
-		if( (*groupIt)->getName().compare( names, Qt::CaseInsensitive ) == 0 )
+        if( (*groupIt)->getName().compare( names[0].at(0), Qt::CaseInsensitive ) == 0 )
 			return *groupIt;
 	}
 
@@ -312,7 +312,7 @@ QSharedPointer<XCodeProj::PbxGroup> XCodeProj::findHeadersGroup()
 	const QString names[] = { "headers", "include", "header" };
 
 	for( QList<QSharedPointer<PbxGroup> >::Iterator groupIt = mPbxGroups.begin(); groupIt != mPbxGroups.end(); ++groupIt ) {
-		if( (*groupIt)->getName().compare( names, Qt::CaseInsensitive ) == 0 )
+        if( (*groupIt)->getName().compare( names[0].at(0), Qt::CaseInsensitive ) == 0 )
 			return *groupIt;
 	}
 
@@ -325,7 +325,7 @@ QSharedPointer<XCodeProj::PbxGroup> XCodeProj::findResourcesGroup()
 	const QString names[] = { "resources", "rsrc" };
 
 	for( QList<QSharedPointer<PbxGroup> >::Iterator groupIt = mPbxGroups.begin(); groupIt != mPbxGroups.end(); ++groupIt ) {
-		if( (*groupIt)->getName().compare( names, Qt::CaseInsensitive ) == 0 )
+        if( (*groupIt)->getName().compare( names[0].at(0), Qt::CaseInsensitive ) == 0 )
 			return *groupIt;
 	}
 
@@ -338,7 +338,7 @@ QSharedPointer<XCodeProj::PbxGroup> XCodeProj::findFrameworksGroup()
 	const QString names[] = { "frameworks", "framework" };
 
 	for( QList<QSharedPointer<PbxGroup> >::Iterator groupIt = mPbxGroups.begin(); groupIt != mPbxGroups.end(); ++groupIt ) {
-		if( (*groupIt)->getName().compare( names, Qt::CaseInsensitive ) == 0 )
+        if( (*groupIt)->getName().compare( names[0].at(0), Qt::CaseInsensitive ) == 0 )
 			return *groupIt;
 	}
 

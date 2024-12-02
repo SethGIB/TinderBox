@@ -167,7 +167,7 @@ void Instancer::copyBareFiles( const vector<GeneratorConditions> &conditions, Cl
 	QList<Template::File> files = getFileTypeMatchingConditions<Template::File::FILE>( conditions, true );
 
 	for( QList<Template::File>::Iterator fileIt = files.begin(); fileIt != files.end(); ++fileIt ) {
-		cloner->copyFileOrDir( fileIt->getAbsoluteInputPath(), fileIt->getAbsoluteOutputPath(), true, fileIt->getReplaceContents(), getNamePrefix() );
+        cloner->copyFileOrDir( QFileInfo(fileIt->getAbsoluteInputPath()), QFileInfo(fileIt->getAbsoluteOutputPath()), true, fileIt->getReplaceContents(), getNamePrefix() );
 	}
 }
 
@@ -186,7 +186,7 @@ void Instancer::copyAssets( const vector<GeneratorConditions> &conditions, Clone
 		QString relOutputPath = assetIt->getRelativeInputPath();
 		if( relOutputPath.indexOf( "assets/") == 0 )
 			relOutputPath = relOutputPath.mid( QString("assets/").length() );
-		cloner->copyFileOrDir( assetIt->getAbsoluteInputPath(), assetDirPath.absoluteFilePath( relOutputPath ), true, assetIt->getReplaceContents(), getNamePrefix() );
+        cloner->copyFileOrDir( QFileInfo(assetIt->getAbsoluteInputPath()), QFileInfo(assetDirPath.absoluteFilePath( relOutputPath )), true, assetIt->getReplaceContents(), getNamePrefix() );
 	}
 }
 
@@ -206,7 +206,7 @@ void Instancer::writeResourcesHeader( const vector<GeneratorConditions> &conditi
 			throw GenerateFailed( "Failed to load Resources.h header: " + resourcesHeaderPath.absoluteFilePath() );
 
 		QTextStream ts( &headerFile );
-		ts.setCodec( "UTF-8" );
+        ts.setEncoding( QStringConverter::Utf8 );
 		output = ts.readAll();
 	}
 	else // otherwise just start the file in the normal way
@@ -252,7 +252,7 @@ void Instancer::writeResourcesHeader( const vector<GeneratorConditions> &conditi
 		throw GenerateFailed( "Failed to write Resources header: " + resourcesHeaderPath.absoluteFilePath() );
 
 	QTextStream ts( &headerFile );
-	ts.setCodec( "UTF-8" );
+    ts.setEncoding( QStringConverter::Utf8 );
 	ts << output;
 }
 

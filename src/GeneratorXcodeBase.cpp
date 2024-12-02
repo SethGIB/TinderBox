@@ -194,7 +194,9 @@ void GeneratorXcodeBase::generate( Instancer *master )
     QString xcodeprojAbsPath = master->getAbsolutePath( xcodeprojRelPath );
     QString cinderPath = master->getMacRelCinderPath( xcodeAbsPath );
 	master->createDirectory( xcodeprojRelPath );
-    QString replaced = loadAndStringReplace( ProjectTemplateManager::getFoundationPath( getRootFolderName() + "/project.pbxproj" ),
+
+    QFileInfo pbxProjectPath = QFileInfo(ProjectTemplateManager::getFoundationPath( getRootFolderName() + "/project.pbxproj" ));
+    QString replaced = loadAndStringReplace( pbxProjectPath ,
             master->getNamePrefix(), cinderPath, xcodeAbsPath );
     XCodeProjRef xcodeProj = XCodeProj::createFromString( replaced );
 

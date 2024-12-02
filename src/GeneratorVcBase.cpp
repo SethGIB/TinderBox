@@ -77,9 +77,12 @@ void GeneratorVcBase::generate( Instancer *instancer )
 	QString cinderPath = instancer->getWinRelCinderPath( absDirPath );
 
     // Load the foundation .vcxproj and .filters files as strings; replace _TBOX_CINDER_PATH_ appropriately
-	QString replacedVcproj = loadAndStringReplace( ProjectTemplateManager::getFoundationPath( mFoundationName + "/foundation.vcxproj" ),
+    QFileInfo foundationProjPath = QFileInfo(ProjectTemplateManager::getFoundationPath( mFoundationName + "/foundation.vcxproj" ));
+    QString replacedVcproj = loadAndStringReplace( foundationProjPath,
 		instancer->getNamePrefix(), cinderPath, absDirPath );
-	QString replacedVcprojFilters = loadAndStringReplace( ProjectTemplateManager::getFoundationPath( mFoundationName + "/foundation.vcxproj.filters" ),
+
+    QFileInfo foundationFiltersPath = QFileInfo(ProjectTemplateManager::getFoundationPath( mFoundationName + "/foundation.vcxproj.filters" ));
+    QString replacedVcprojFilters = loadAndStringReplace( foundationFiltersPath ,
 		instancer->getNamePrefix(), cinderPath, absDirPath );
     // parse these strings into an instance of VcProj
     VcProjRef vcProj = createVcProj( replacedVcproj, replacedVcprojFilters );

@@ -24,6 +24,8 @@
 #include "VcProj.h"
 #include "Util.h"
 #include <QUuid>
+#include <QStringConverter>
+#include <QtCore5Compat/QTextCodec>
 
 VcProj::VcProj( const QString &vcProjString, const QString &vcProjFiltersString )
 {
@@ -424,7 +426,7 @@ void VcProj::write( const QString &directoryPath, const QString &namePrefix ) co
 			throw VcProjExc( "Failed to write to " + writePath );
 
 		QTextStream ts( &outFile );
-		ts.setCodec( "UTF-8" );
+        ts.setEncoding( QStringConverter::Utf8 );
 		xml_string_writer writer;
 		mProjDom->print( writer, "  " );
 		QString str = QString::fromUtf8( writer.result.c_str() ).replace( "\n", "\r\n" );
@@ -438,7 +440,7 @@ void VcProj::write( const QString &directoryPath, const QString &namePrefix ) co
 			throw VcProjExc( "Failed to write to " + writePath );
 
 		QTextStream ts( &outFile );
-		ts.setCodec( "UTF-8" );
+        ts.setEncoding( QStringConverter::Utf8 );
 		xml_string_writer writer;
 		mFilters->getDom()->print( writer, "  " );
 		QString str = QString::fromUtf8( writer.result.c_str() ).replace( "\n", "\r\n" );
@@ -452,7 +454,7 @@ void VcProj::write( const QString &directoryPath, const QString &namePrefix ) co
 			throw VcProjExc( "Failed to write to " + writePath );
 
 		QTextStream ts( &outFile );
-		ts.setCodec( "UTF-8" );
+        ts.setEncoding( QStringConverter::Utf8 );
 		ts << getSlnString();
 	}
 
@@ -463,7 +465,8 @@ void VcProj::write( const QString &directoryPath, const QString &namePrefix ) co
 			throw VcProjExc( "Failed to write to " + writePath );
 
 		QTextStream ts( &outFile );
-		ts.setCodec( "Windows-1252" ); // this could be UTF-16LE but VC++ can't display it
+        //QTextCodec *w1252 = QTextCodec::codecForName( "Windows-1252" );
+        ts.setEncoding( QStringConverter::Latin1 ); // this could be UTF-16LE but VC++ can't display it
 		ts << getRcString();
 	}
 }

@@ -27,13 +27,13 @@ background-color: red;
      <item>
       <layout class="QFormLayout" name="formLayout">
        <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::FieldsStayAtSizeHint</enum>
+        <enum>QFormLayout::FieldGrowthPolicy::FieldsStayAtSizeHint</enum>
        </property>
        <property name="labelAlignment">
-        <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTop|Qt::AlignmentFlag::AlignTrailing</set>
        </property>
        <property name="formAlignment">
-        <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        <set>Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop</set>
        </property>
        <property name="verticalSpacing">
         <number>12</number>
@@ -42,7 +42,6 @@ background-color: red;
         <widget class="QLabel" name="templateLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -57,7 +56,7 @@ background-color: red;
           <number>3</number>
          </property>
          <property name="sizeConstraint">
-          <enum>QLayout::SetFixedSize</enum>
+          <enum>QLayout::SizeConstraint::SetFixedSize</enum>
          </property>
          <property name="topMargin">
           <number>0</number>
@@ -122,7 +121,6 @@ background-color: red;
         <widget class="QLabel" name="projectNameLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -154,7 +152,6 @@ background-color: red;
         <widget class="QLabel" name="locationLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -213,7 +210,6 @@ background-color: red;
         <widget class="QLabel" name="cinderVersionLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -252,7 +248,6 @@ background-color: red;
         <widget class="QLabel" name="optionsLabel">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -260,7 +255,7 @@ background-color: red;
           <string>Environment:</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+          <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft</set>
          </property>
         </widget>
        </item>
@@ -297,7 +292,7 @@ background-color: red;
              <number>2</number>
             </property>
             <property name="verticalScrollBarPolicy">
-             <enum>Qt::ScrollBarAlwaysOff</enum>
+             <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
             </property>
             <property name="autoScroll">
              <bool>false</bool>
@@ -306,10 +301,10 @@ background-color: red;
              <bool>true</bool>
             </property>
             <property name="dragDropMode">
-             <enum>QAbstractItemView::DragDrop</enum>
+             <enum>QAbstractItemView::DragDropMode::DragDrop</enum>
             </property>
             <property name="selectionMode">
-             <enum>QAbstractItemView::MultiSelection</enum>
+             <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
             </property>
             <property name="iconSize">
              <size>
@@ -318,19 +313,19 @@ background-color: red;
              </size>
             </property>
             <property name="movement">
-             <enum>QListView::Snap</enum>
+             <enum>QListView::Movement::Snap</enum>
             </property>
             <property name="resizeMode">
-             <enum>QListView::Adjust</enum>
+             <enum>QListView::ResizeMode::Adjust</enum>
             </property>
             <property name="layoutMode">
-             <enum>QListView::SinglePass</enum>
+             <enum>QListView::LayoutMode::SinglePass</enum>
             </property>
             <property name="spacing">
              <number>6</number>
             </property>
             <property name="viewMode">
-             <enum>QListView::IconMode</enum>
+             <enum>QListView::ViewMode::IconMode</enum>
             </property>
             <property name="uniformItemSizes">
              <bool>false</bool>
@@ -365,6 +360,17 @@ background-color: red;
             <item>
              <property name="text">
               <string>VC 2019</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normalon>:/icons/vc2015.png</normalon>
+               <selectedon>:/icons/vc2015_selected.png</selectedon>
+              </iconset>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>VC 2022</string>
              </property>
              <property name="icon">
               <iconset>
@@ -412,10 +418,10 @@ background-color: red;
      <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
-        <enum>Qt::Vertical</enum>
+        <enum>Qt::Orientation::Vertical</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
+        <enum>QSizePolicy::Policy::Fixed</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
