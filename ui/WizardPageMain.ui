@@ -359,35 +359,12 @@ background-color: red;
             </item>
             <item>
              <property name="text">
-              <string>VC 2019</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normalon>:/icons/vc2015.png</normalon>
-               <selectedon>:/icons/vc2015_selected.png</selectedon>
-              </iconset>
-             </property>
-            </item>
-            <item>
-             <property name="text">
               <string>VC 2022</string>
              </property>
              <property name="icon">
               <iconset>
                <normalon>:/icons/vc2015.png</normalon>
                <selectedon>:/icons/vc2015_selected.png</selectedon>
-              </iconset>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>WinRT
-(VC 2015)</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normalon>:/icons/vc_winrt.png</normalon>
-               <selectedoff>:/icons/vc_winrt_selected.png</selectedoff>
               </iconset>
              </property>
             </item>

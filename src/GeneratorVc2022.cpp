@@ -21,41 +21,43 @@
  POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "GeneratorVc2015Winrt.h"
+#include "GeneratorVc2022.h"
 #include "ProjectTemplateManager.h"
 #include "Util.h"
-#include "Vc2015WinRtProj.h"
+#include "Vc2015Proj.h"
 
 #include <fstream>
 
-GeneratorConditions GeneratorVc2015WinRt::getBaseConditions() const
+GeneratorConditions GeneratorVc2022::getBaseConditions() const
 {
 	QMap<QString,QString> conditions;
-    conditions["compiler"] = "vc2015";
-	conditions["os"] = "winrt";
+    conditions["compiler"] = "vc2022";
+	conditions["os"] = "msw";
 	return GeneratorConditions( conditions );
 }
 
-VcProjRef GeneratorVc2015WinRt::createVcProj( const QString &VcProj, const QString &VcProjFilters )
+VcProjRef GeneratorVc2022::createVcProj( const QString &VcProj, const QString &VcProjFilters )
 {
-    return Vc2015WinrtProj::createFromString( VcProj, VcProjFilters );
+    return Vc2015Proj::createFromString( VcProj, VcProjFilters );
 }
 
-std::vector<VcProj::ProjectConfiguration> GeneratorVc2015WinRt::getPlatformConfigurations() const
+std::vector<VcProj::ProjectConfiguration> GeneratorVc2022::getPlatformConfigurations() const
 {
     std::vector<VcProj::ProjectConfiguration> result;
 
-	if( mOptions.mEnableWin32 ) {
+	// Win32 GL
+	if( mOptions.mEnableWin32 && mOptions.mEnableDesktopGl ) {
 		result.push_back( VcProj::ProjectConfiguration( QString::fromUtf8( "Debug" ), QString::fromUtf8( "Win32" ) ) );
 		{auto conditions = getBaseConditions(); conditions.setCondition( "arch", "i386" ); conditions.setCondition( "config", "debug" );
 		result.back().setConditions( conditions );}
 
 		result.push_back( VcProj::ProjectConfiguration( QString::fromUtf8( "Release" ), QString::fromUtf8( "Win32" ) ) );
-		{auto conditions = getBaseConditions(); conditions.setCondition( "arch", "i386" ); conditions.setCondition( "config", "release");
+		{auto conditions = getBaseConditions(); conditions.setCondition( "arch", "i386" ); conditions.setCondition( "config", "release" );
 		result.back().setConditions( conditions );}
 	}
 
-	if( mOptions.mEnableX64 ) {
+	// x64 GL
+	if( mOptions.mEnableX64 && mOptions.mEnableDesktopGl ) {
 		result.push_back( VcProj::ProjectConfiguration( QString::fromUtf8( "Debug" ), QString::fromUtf8( "x64" ) ) );
 		{auto conditions = getBaseConditions(); conditions.setCondition( "arch", "x86_64" ); conditions.setCondition( "config", "debug" );
 		result.back().setConditions( conditions );}
@@ -65,20 +67,10 @@ std::vector<VcProj::ProjectConfiguration> GeneratorVc2015WinRt::getPlatformConfi
 		result.back().setConditions( conditions );}
 	}
 
-	if( mOptions.mEnableArm ) {
-		result.push_back( VcProj::ProjectConfiguration( QString::fromUtf8( "Debug" ), QString::fromUtf8( "ARM" ) ) );
-		{auto conditions = getBaseConditions(); conditions.setCondition( "arch", "ARM" ); conditions.setCondition( "config", "debug" );
-		result.back().setConditions( conditions );}
-
-		result.push_back( VcProj::ProjectConfiguration( QString::fromUtf8( "Release" ), QString::fromUtf8( "x64" ) ) );
-		{auto conditions = getBaseConditions(); conditions.setCondition( "arch", "ARM" ); conditions.setCondition( "config", "ARM" );
-		result.back().setConditions( conditions );}
-	}
-
 	return result;
 }
 
-bool GeneratorVc2015WinRt::getSlnDeploy() const
+bool GeneratorVc2022::getSlnDeploy() const
 {
-	return true;
+	return false;
 }

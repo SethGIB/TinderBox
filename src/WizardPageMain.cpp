@@ -48,7 +48,7 @@
 #include <iostream>
 
 // add to mPlatformConditions too
-enum { XCODE_INDEX, XCODE_IOS_INDEX, VC2015_INDEX, VC2015_WINRT_INDEX, NUM_PLATFORMS };
+enum { XCODE_INDEX, XCODE_IOS_INDEX, VC2022_INDEX, NUM_PLATFORMS };
 
 WizardPageMain::WizardPageMain( MainWizard *parent ) :
 	QWizardPage(parent),
@@ -80,7 +80,7 @@ WizardPageMain::WizardPageMain( MainWizard *parent ) :
 #endif
 
 #if defined Q_OS_WIN
-    ui->compilerList->item( VC2015_INDEX )->setSelected( true );
+    ui->compilerList->item( VC2022_INDEX )->setSelected( true );
 #endif
 
 	// Update controls
@@ -200,14 +200,9 @@ bool WizardPageMain::isXcodeIosSelected() const
     return ui->compilerList->item( XCODE_IOS_INDEX )->isSelected();
 }
 
-bool WizardPageMain::isVc2015WinrtSelected() const
+bool WizardPageMain::isVc2022Selected() const
 {
-    return ui->compilerList->item( VC2015_WINRT_INDEX )->isSelected();
-}
-
-bool WizardPageMain::isVc2015Selected() const
-{
-	return ui->compilerList->item( VC2015_INDEX )->isSelected();
+    return ui->compilerList->item( VC2022_INDEX )->isSelected();
 }
 
 QString WizardPageMain::getCinderLocation() const

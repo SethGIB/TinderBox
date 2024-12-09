@@ -56,6 +56,7 @@ public:
 	bool	isXcodeIosSelected() const;
 	bool	isVc2015WinrtSelected() const;
 	bool	isVc2015Selected() const;
+    bool	isVc2022Selected() const;
 
 	void                updateCinderVersionsCtrl();
 	void				updateTemplates();

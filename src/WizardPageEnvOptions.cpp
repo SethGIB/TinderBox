@@ -31,35 +31,25 @@ WizardPageEnvOptions::WizardPageEnvOptions( MainWizard *parent ) :
 {
     ui->setupUi(this);
 
-	// VC 2015
-	connect( ui->vc2015OpenGlCheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
-	connect( ui->vc2015AngleCheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
-
-	// VC 2015 WinRT
-	connect( ui->vc2015WinRtWin32CheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
-	connect( ui->vc2015WinRtX64CheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
-	connect( ui->vc2015WinRtArmCheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
+    // VC 2022
+    connect( ui->vc2022OpenGlCheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
+    connect( ui->vc2022AngleCheckBox,SIGNAL(clicked(bool)),this,SLOT(updateNextButton(bool)) );
 
 #if ! defined( Q_OS_MAC )
 	QFont font = ui->envOptionsLabel->font();
 	font.setBold( true ); font.setPointSize( 12 );
 	ui->envOptionsLabel->setFont( font );
 	font.setPointSize( 10 );
-	ui->vc2015HeaderLabel->setFont( font );
-	ui->vc2015WinRtHeaderLabel->setFont( font );
+    ui->vc2022HeaderLabel->setFont( font );
 	font.setPointSize( 9 );
-	ui->vc2015RendererLabel->setFont( font );
-	ui->vc2015WinRtPlatformLabel->setFont( font );
+    ui->vc2022RendererLabel->setFont( font );
 #endif
 }
 
 void WizardPageEnvOptions::initializePage()
 {
-	mVc2015Enabled = mParent->getWizardPageMain()->isVc2015Selected();
-	mVc2015WinRtEnabled = mParent->getWizardPageMain()->isVc2015WinrtSelected();
-
-	recursiveEnable( ui->vc2015Layout, mVc2015Enabled );
-	recursiveEnable( ui->vc2015WinRtLayout, mVc2015WinRtEnabled );
+    mVc2022Enabled = mParent->getWizardPageMain()->isVc2022Selected();
+    recursiveEnable( ui->vc2022Layout, mVc2022Enabled );
 }
 
 void WizardPageEnvOptions::recursiveEnable( QLayout *layout, bool enable )
@@ -74,44 +64,17 @@ void WizardPageEnvOptions::recursiveEnable( QLayout *layout, bool enable )
 	}
 }
 
-bool WizardPageEnvOptions::isVc2015DesktopGlSelected() const
+bool WizardPageEnvOptions::isVc2022DesktopGlSelected() const
 {
-	return ui->vc2015OpenGlCheckBox->isChecked();
+    return ui->vc2022OpenGlCheckBox->isChecked();
 }
-
-bool WizardPageEnvOptions::isVc2015AngleSelected() const
-{
-	return ui->vc2015AngleCheckBox->isChecked();
-}
-
-/////////////////////////////////////////////////////////////
-// VC 2015 WinRT
-bool WizardPageEnvOptions::isVc2015WinRtWin32Selected() const
-{
-	return ui->vc2015WinRtWin32CheckBox->isChecked();
-}
-
-bool WizardPageEnvOptions::isVc2015WinRtX64Selected() const
-{
-	return ui->vc2015WinRtX64CheckBox->isChecked();
-}
-
-bool WizardPageEnvOptions::isVc2015WinRtArmSelected() const
-{
-	return ui->vc2015WinRtArmCheckBox->isChecked();
-}
-
-/////////////////////////////////////////////////////////////
 
 void WizardPageEnvOptions::updateNextButton( bool /*ignored*/ )
 {
-    bool vc2015RendererChecked = isVc2015DesktopGlSelected() || isVc2015AngleSelected();
-	bool vc2015Good = ( ! mVc2015Enabled ) || ( vc2015RendererChecked );
+    bool vc2022RendererChecked = isVc2022DesktopGlSelected();
+    bool vc2022Good = ( ! mVc2022Enabled ) || ( vc2022RendererChecked );
 
-	bool vc2015WinRtPlatformChecked = isVc2015WinRtWin32Selected() || isVc2015WinRtX64Selected() || isVc2015WinRtArmSelected();
-	bool vc2015WinRtGood = ( ! mVc2015WinRtEnabled ) || vc2015WinRtPlatformChecked;
-
-	wizard()->button( QWizard::NextButton )->setEnabled( vc2015Good && vc2015WinRtGood );
+    wizard()->button( QWizard::NextButton )->setEnabled( vc2022Good );
 }
 
 WizardPageEnvOptions::~WizardPageEnvOptions()

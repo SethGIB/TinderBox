@@ -32,8 +32,7 @@
 #include "CinderBlockManager.h"
 #include "GeneratorXcodeMac.h"
 #include "GeneratorXcodeIos.h"
-#include "GeneratorVc2015Winrt.h"
-#include "GeneratorVc2019.h"
+#include "GeneratorVc2022.h"
 #include "Util.h"
 
 #include <QAbstractButton>
@@ -136,9 +135,9 @@ void MainWizard::loadTemplates()
 
 int MainWizard::nextId() const
 {
-    // If we're coming from the first page and the user has enabled VC2015, we need to present some options
+    // If we're coming from the first page and the user has enabled VC, we need to present some options
 	if( currentId() == PAGE_MAIN ) {
-		if( mWizardPageMain->isVc2015Selected() || mWizardPageMain->isVc2015WinrtSelected() )
+        if( mWizardPageMain->isVc2022Selected())
 			return PAGE_ENV_OPTIONS;
         else
 			return PAGE_CINDER_BLOCKS;
@@ -232,22 +231,14 @@ void MainWizard::generateProject()
 			instancer.addGenerator( new GeneratorXcodeMac() );
 		if( mWizardPageMain->isXcodeIosSelected() )
 			instancer.addGenerator( new GeneratorXcodeIos() );
-		if( mWizardPageMain->isVc2015Selected() ) {
-			GeneratorVc2019::Options options;
-			options.enableWin32( false );
-			options.enableX64( true );
-			options.enableDesktopGl( mWizardPageEnvOptions->isVc2015DesktopGlSelected() );
-			options.enableAngle( mWizardPageEnvOptions->isVc2015AngleSelected() );
-			instancer.addGenerator( new GeneratorVc2019( options ) );
-		}
-		if( mWizardPageMain->isVc2015WinrtSelected() ) {
-            GeneratorVc2015WinRt::Options options;
-			options.enableWin32( mWizardPageEnvOptions->isVc2015WinRtWin32Selected() );
-			options.enableX64( mWizardPageEnvOptions->isVc2015WinRtX64Selected() );
-			options.enableArm( mWizardPageEnvOptions->isVc2015WinRtArmSelected() );
-			instancer.addGenerator( new GeneratorVc2015WinRt( options ) );
-		}
-		for( QList<CinderBlock>::ConstIterator blockIt = mCinderBlocks.begin(); blockIt != mCinderBlocks.end(); ++blockIt ) {
+        if( mWizardPageMain->isVc2022Selected() ) {
+            GeneratorVc2022::Options options;
+            options.enableWin32( false );
+            options.enableX64( true );
+            options.enableDesktopGl( mWizardPageEnvOptions->isVc2022DesktopGlSelected() );
+            instancer.addGenerator( new GeneratorVc2022( options ) );
+        }
+        for( QList<CinderBlock>::ConstIterator blockIt = mCinderBlocks.begin(); blockIt != mCinderBlocks.end(); ++blockIt ) {
 			if( blockIt->getInstallType() != CinderBlock::INSTALL_NONE )
 				instancer.addCinderBlock( *blockIt );
 		}

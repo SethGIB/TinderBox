@@ -42,13 +42,7 @@ public:
 	void	initializePage() override;
 
 	// VC 2019
-	bool	isVc2015DesktopGlSelected() const;
-	bool	isVc2015AngleSelected() const;
-
-	// VC 2015 WinRT
-	bool	isVc2015WinRtWin32Selected() const;
-	bool	isVc2015WinRtX64Selected() const;
-	bool	isVc2015WinRtArmSelected() const;
+    bool	isVc2022DesktopGlSelected() const;
 
 public slots:
 	void	updateNextButton( bool /*ignored*/ );
@@ -59,7 +53,7 @@ private:
 	Ui::WizardPageEnvOptions	*ui;
 	MainWizard					*mParent;
 
-	bool			mVc2015Enabled, mVc2015WinRtEnabled;
+    bool			mVc2022Enabled;
 };
 
 #endif // WIZARDPAGEENVOPTIONS_H

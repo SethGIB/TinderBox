@@ -29,30 +29,29 @@
 #include "ProjectTemplate.h"
 #include "GeneratorVcBase.h"
 
-class GeneratorVc2015WinRt : public GeneratorVcBase {
+class GeneratorVc2022 : public GeneratorVcBase {
   public:
 	struct Options;
 
-    GeneratorVc2015WinRt( const Options & options )
-        : GeneratorVcBase( "vc2015_uwp" ), mOptions( options )
+    GeneratorVc2022( const Options &options )
+        : GeneratorVcBase( "vc2019" ), mOptions( options )
 	{}
 
 	struct Options {
 	  public:
 		void		enableWin32( bool enable ) { mEnableWin32 = enable; }
 		void		enableX64( bool enable ) { mEnableX64 = enable; }
-		void		enableArm( bool enable ) { mEnableArm = enable; }
+		void		enableDesktopGl( bool enable ) { mEnableDesktopGl = enable; }
 
-		bool		mEnableWin32, mEnableX64, mEnableArm;
+        bool		mEnableWin32, mEnableX64, mEnableDesktopGl;
 	};
 
-	virtual GeneratorConditions							getBaseConditions() const;
-    virtual std::vector<VcProj::ProjectConfiguration>	getPlatformConfigurations() const override;
-    virtual bool                                        getSlnDeploy() const;
-    virtual bool                                        getUseRcFile() const { return false; }
+	GeneratorConditions							getBaseConditions() const;
+	std::vector<VcProj::ProjectConfiguration>	getPlatformConfigurations() const override;
+	virtual bool                                getSlnDeploy() const;
+	virtual bool                                getUseRcFile() const { return true; }
 
 	virtual VcProjRef	createVcProj( const QString &vcProj, const QString &vcProjFilters );
 
-  private:
-	Options				mOptions;
+	Options		mOptions;
 };
